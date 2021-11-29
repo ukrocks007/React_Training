@@ -35,9 +35,9 @@ class Signup extends Component {
                 Last Name: <input value={ this.state.lastName } type="lastName" onChange={ this.updateData } />
 
                 Stream: <select value={ this.state.stream } onChange={ this.updateData } name="stream">
-                    <option value="Arts">Arts</option>
-                    <option value="Commerce">Commerce</option>
-                    <option value="Science">Science</option>
+                    <option value="arts">Arts</option>
+                    <option value="commerce">Commerce</option>
+                    <option value="science">Science</option>
                 </select>
 
                 Terms &amp; Conditions: <checkbox name="tnc" checked={ this.state.tnc } onChange={ this.handleCheckboxChecked } />
