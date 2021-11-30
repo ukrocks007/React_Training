@@ -18,7 +18,7 @@ export default class CreateTodo extends React.Component {
         let user = localStorage.getItem('user');
         user = user ? JSON.parse(user) : undefined;
         if (user) {
-            axios.post('https://1234-purple-canid-1h78y7w3.ws-us17.gitpod.io/api/todo', {
+            axios.post('https://63af-2409-4042-4d32-6d94-a5e4-2ceb-ff06-6b44.ngrok.io/api/todo', {
                 name: this.state.name,
                 list: this.state.tasks,
                 user: user.id
@@ -44,7 +44,7 @@ export default class CreateTodo extends React.Component {
         return (
             <div>
                     <label>Name:</label>
-                    <input type="text" name="name" onChange={this.handleChange} />
+                    <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
                     <label>Task:</label>
                     <input type="text" name="newTask" value={ this.state.newTask } onChange={ this.handleChange } />
                     <button onClick={
