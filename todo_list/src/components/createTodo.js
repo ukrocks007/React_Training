@@ -39,7 +39,7 @@ export default class CreateTodo extends React.Component {
                     "Authorization": localStorage.getItem('token')
                 }
             })
-                .then(res => { console.log(res.data); this.props.refreshLists(); })
+                .then(res => { console.log(res.data); this.props.refreshLists(); this.setState({tasks: []}); })
                 .catch(err => console.log)
         }
     }
