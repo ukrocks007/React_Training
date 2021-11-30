@@ -19,6 +19,15 @@ export default class TodoList extends React.Component {
         }
     }
 
+    delete(id) {
+        axios.delete('https://63af-2409-4042-4d32-6d94-a5e4-2ceb-ff06-6b44.ngrok.io/api/todo?id=' + id, {
+            headers: {
+                "Authorization": localStorage.getItem('token') || "-"
+            }
+        }).then(res => this.getLists())
+            .catch(err => console.log(err));
+    }
+
     logout() {
         localStorage.clear();
         window.location.replace('/');
@@ -58,6 +67,8 @@ export default class TodoList extends React.Component {
                                     )
                                 }
                             </ListGroup>
+                            <Card.Link onClick={e => this.edit(t.id)} href="#">Edit</Card.Link>
+                            <Card.Link onClick={e => this.delete(t.id)} href="#">Delete</Card.Link>
                         </Card.Body>
                     </Card>) }
                 </Stack>

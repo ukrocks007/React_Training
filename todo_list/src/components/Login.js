@@ -38,6 +38,7 @@ export default class Login extends React.Component {
         return (
             // <center>
                 <div>
+                    <h1>Login</h1>
                     <form onSubmit={ this.handleSubmit }>
                         <div>
                             <label>Email:</label>
