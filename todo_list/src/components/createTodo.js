@@ -1,5 +1,17 @@
 import React from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import { Form, InputGroup, FormControl, Card } from 'react-bootstrap';
+
+const colors = [
+    'Primary',
+    'Secondary',
+    'Success',
+    'Danger',
+    'Warning',
+    'Info',
+    'Light',
+];
 
 export default class CreateTodo extends React.Component {
     constructor(props) {
@@ -33,7 +45,7 @@ export default class CreateTodo extends React.Component {
     }
 
     handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     getTasksList() {
@@ -43,25 +55,39 @@ export default class CreateTodo extends React.Component {
     render() {
         return (
             <div>
-                    <label>Name:</label>
-                    <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-                    <label>Task:</label>
-                    <input type="text" name="newTask" value={ this.state.newTask } onChange={ this.handleChange } />
-                    <button onClick={
-                        e =>
-                            this.setState({
-                                tasks: [...this.state.tasks, { data: this.state.newTask, isDone: false }],
-                                newTask: ""
-                            })
-                    }
-                    
-                    >+</button>
-                    <br />
-                    <button onClick={this.addTodo}>Add List</button>
-                    <br />
-                    {
-                        this.state.tasks.map(t => <p><input type="text" readOnly={true} value={t.data} /></p>)
-                    }
+                <Form>
+                    <Form.Group className="mb-3" controlId="createTodoList">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" name="name" placeholder="Enter Todo List Name"
+                            value={ this.state.name } onChange={ this.handleChange } />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Task Name</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                placeholder="New Task Name"
+                                aria-label="New Task Name"
+                                aria-describedby="basic-addon2"
+                                name="newTask"
+                                value={ this.state.newTask } onChange={ this.handleChange }
+                            />
+                            <Button variant="outline-primary" onClick={
+                                e =>
+                                    this.setState({
+                                        tasks: [...this.state.tasks, { data: this.state.newTask, isDone: false }],
+                                        newTask: ""
+                                    })
+                            }
+
+                            >Add New Task</Button>{ ' ' }
+                        </InputGroup>
+                    </Form.Group>
+                    <Button onClick={ this.addTodo }>Add List</Button>
+                </Form>
+                <br />
+                {
+                    this.state.tasks.map((t, i) => <Card bg={colors[i % colors.length].toLowerCase()} body>{ t.data }</Card>)
+                }
             </div>
         );
     }

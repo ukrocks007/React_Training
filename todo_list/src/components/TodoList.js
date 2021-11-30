@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import CreateTodo from './createTodo';
+import {Card, Stack, ListGroupItem, ListGroup, Badge} from 'react-bootstrap';
 
 export default class TodoList extends React.Component {
     constructor(props) {
@@ -16,13 +17,31 @@ export default class TodoList extends React.Component {
             headers: {
                 "Authorization": localStorage.getItem('token') || "-"
             }
-        }).then(res => console.log(res.data))
+        }).then(res => this.setState({todos: res.data}))
             .catch(err => console.log(err));
     }
     render() {
         return (
             <div>
                 <CreateTodo />
+                <Stack direction="horizontal" gap={3}>
+                { this.state.todos.map(t =>
+                    <Card style={ { width: '18rem' } }>
+                        <Card.Body>
+                            <Card.Title>{ t.name }</Card.Title>
+                            <ListGroup className="list-group-flush">
+                                {
+                                    t.list.map(tsk =>
+                                        <ListGroupItem>{ tsk.data }  { tsk.isDone && <Badge pill bg="success">
+                                            Done
+                                        </Badge> }
+                                        </ListGroupItem>
+                                    )
+                                }
+                            </ListGroup>
+                        </Card.Body>
+                    </Card>) }
+                </Stack>
             </div>
         );
     }
