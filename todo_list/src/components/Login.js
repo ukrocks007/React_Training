@@ -10,6 +10,10 @@ export default class Login extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        let token = localStorage.getItem('token');
+        if(token) {
+            window.location.replace('/home');
+        }
     }
     handleChange(e) {
         this.setState({
@@ -24,7 +28,7 @@ export default class Login extends React.Component {
         }).then(res => {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
-            window.location.reload();
+            window.location.replace('/home');
         }).catch(err => {
             console.log(err);
         })
