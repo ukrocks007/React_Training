@@ -11,8 +11,9 @@ export default class TodoList extends React.Component {
             name: "",
             tasks: []
         }
+        this.getLists = this.getLists.bind(this);
     }
-    componentDidMount() {
+    getLists() {
         axios.get('https://63af-2409-4042-4d32-6d94-a5e4-2ceb-ff06-6b44.ngrok.io/api/todo', {
             headers: {
                 "Authorization": localStorage.getItem('token') || "-"
@@ -20,10 +21,13 @@ export default class TodoList extends React.Component {
         }).then(res => this.setState({todos: res.data}))
             .catch(err => console.log(err));
     }
+    componentDidMount() {
+        this.getLists();
+    }
     render() {
         return (
             <div>
-                <CreateTodo />
+                <CreateTodo refreshLists={this.getLists} />
                 <Stack direction="horizontal" gap={3}>
                 { this.state.todos.map(t =>
                     <Card style={ { width: '18rem' } }>

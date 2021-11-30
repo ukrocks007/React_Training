@@ -39,7 +39,7 @@ export default class CreateTodo extends React.Component {
                     "Authorization": localStorage.getItem('token')
                 }
             })
-                .then(res => console.log)
+                .then(res => { console.log(res.data); this.props.refreshLists(); })
                 .catch(err => console.log)
         }
     }
@@ -86,7 +86,7 @@ export default class CreateTodo extends React.Component {
                 </Form>
                 <br />
                 {
-                    this.state.tasks.map((t, i) => <Card bg={colors[i % colors.length].toLowerCase()} body>{ t.data }</Card>)
+                    this.state.tasks.map((t, i) => <Card bg={ colors[i % colors.length].toLowerCase() } body>{ t.data }</Card>)
                 }
             </div>
         );
